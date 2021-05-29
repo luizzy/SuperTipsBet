@@ -1,0 +1,484 @@
+{
+  "project_info": {
+    "project_number": "150687267599",
+    "firebase_url": "https://winnertips-3b4e9.firebaseio.com",
+    "project_id": "winnertips-3b4e9",
+    "storage_bucket": "winnertips-3b4e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:4e68f082c3209a9a",
+        "android_client_info": {
+          "package_name": "com.WinnerTips.Sporttips"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-n1pm1k6jv90euptebvvo3c0dcerchj92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.WinnerTips.Sporttips",
+            "certificate_hash": "8140fb4fff371b1ceb35576290e413d6dd9d90c7"
+          }
+        },
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:ea132b35c87a8f6b",
+        "android_client_info": {
+          "package_name": "com.WinnerTips.sporttips"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-6ojt8r18tl7bflmbsfotqo1rgv3udto7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.WinnerTips.sporttips",
+            "certificate_hash": "8140fb4fff371b1ceb35576290e413d6dd9d90c7"
+          }
+        },
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:3fbef186a789d5dfe75c7a",
+        "android_client_info": {
+          "package_name": "com.betisports.maxbetssurebets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:e3212e425cca15ace75c7a",
+        "android_client_info": {
+          "package_name": "com.betisports.maxbetssurebetsadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:3907580a8752dd8e",
+        "android_client_info": {
+          "package_name": "com.sportpesatips.Startips"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-cbvf5u0uqjnh30ikguagfkmmuipgnkfm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sportpesatips.Startips",
+            "certificate_hash": "8140fb4fff371b1ceb35576290e413d6dd9d90c7"
+          }
+        },
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-5043208762700605~1266360035"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:67f8fe537e012754e75c7a",
+        "android_client_info": {
+          "package_name": "com.winnertips.kingsadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-kf6pf4p0qb8hb5ekut11ltja1lumlnt9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.winnertips.kingsadmin",
+            "certificate_hash": "8140fb4fff371b1ceb35576290e413d6dd9d90c7"
+          }
+        },
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:0beb52c3a6be3db8",
+        "android_client_info": {
+          "package_name": "com.winnertips.nairapredictz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-ju3uiioj1kaav5buj26h5l8oe1p51qr0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.winnertips.nairapredictz",
+            "certificate_hash": "8140fb4fff371b1ceb35576290e413d6dd9d90c7"
+          }
+        },
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-5043208762700605~1632467135"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:52a9b21bef6b9882",
+        "android_client_info": {
+          "package_name": "com.winnertips.sportsadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-8i1891ci8rbg2gad8obuqp8as9qtdkc0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.winnertips.sportsadmin",
+            "certificate_hash": "8140fb4fff371b1ceb35576290e413d6dd9d90c7"
+          }
+        },
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:76ec94343d5a13c5",
+        "android_client_info": {
+          "package_name": "com.winnertips.sporttips"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-5043208762700605~9078275212"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:7375ebfeff9e3a20e75c7a",
+        "android_client_info": {
+          "package_name": "com.winnertips.supertipsadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:4622d42072170383e75c7a",
+        "android_client_info": {
+          "package_name": "com.winnertips.supertipsbet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:d7f97b4ed3667206e75c7a",
+        "android_client_info": {
+          "package_name": "com.winnertips.surebetadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-9630o30scnfegeio9teikk6kg92tf5m1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.winnertips.surebetadmin",
+            "certificate_hash": "8140fb4fff371b1ceb35576290e413d6dd9d90c7"
+          }
+        },
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:67708f92c0eeaf7de75c7a",
+        "android_client_info": {
+          "package_name": "com.winnertips.surebetpredictions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-etfftc326a9loqp6muc4i379c0bkbd69.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.winnertips.surebetpredictions",
+            "certificate_hash": "8140fb4fff371b1ceb35576290e413d6dd9d90c7"
+          }
+        },
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150687267599:android:14f763311bf6aaafe75c7a",
+        "android_client_info": {
+          "package_name": "com.winningbets.supertipsbet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTD4ObkGd3mUkOTI1kEyvUDG9in6Scq2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150687267599-19rj6ks07p6vm9vfgev3hd42htk115vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
