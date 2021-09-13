@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Super Tips Predictions</string>
+<!--the native id is a native banner-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_ID">600670007188545</string>
+    <string name="native_banner_Ad">600670007188545_600672597188286</string>
+    <string name="nativeAd">600670007188545_823374431584767</string>
+    <string name="interstitial_Ad">600670007188545_600671383855074</string>
+    <string name="banner_Ad">ca-app-pub-5043208762700605/7658198592</string>
+
+
+    <string name="About_App">App Version 1 : 1.0.1\n\nDeveloper: WinnerTips.\n</string>
+    <string name="action_settings">Settings</string>
+    <string name="ad_attribution">Ad</string>
+    <string name="feedback">Feedback</string>
+    <string name="share">Share</string>
+    <string name="submit_feedback">Submit</string>
+    <string name="rate_us_please">Rate Us</string>
+    <string name="about">About</string>
+    <string name="_23_june">date</string>
+    <string name="post">post</string>
+    <string name="post_time">time</string>
+    <string name="jackpot_predictions">Super Tips Predictions</string>
+    <string name="your_email_address">Email Address</string>
+    <string name="app_descrip">Developed and Designed by WinnerTips.</string>
+    <string name="title_activity_index">Index</string>
+    <string name="telegram_channel">https://t.me/SportTipsters</string>
+    <string name="mail_feedback">theluizzy@gmail.com</string>
+    <string name="url_app">https://play.google.com/store/apps/details?id=com.winningbets.supertipsbet</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_notification_channel_id">default</string>
+    <string name="resp_warning">REMEMBER – GAMBLE FOR THE FUN OF IT, NOT FOR THE MONEY. IF IT STOPS BEING FUN… STOP. \nFollow these four easy steps to make sure your gambling stays in control: \n1.  Set yourself time and money limits and stick to them; \n2.  Take frequent breaks; \n3.  Don\'t chase your losses – walk away; \n4.  Only spend what you can afford on gambling.</string>
+    <string name="interstitial">ca-app-pub-5043208762700605/3290368662</string>
+    <string name="mopub_native">b6a32be25d0d45c28e3a6bfe61b483a2</string>
+    <string name="STB_Banner">b86a1c73a2804a478bccff3051c1b6bd</string>
+    <string name="Mopub_interstitial">9496c658c1154b41be09fddcf6e34efc</string>
+</resources>
