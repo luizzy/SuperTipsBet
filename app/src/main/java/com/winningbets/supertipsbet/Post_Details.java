@@ -1,5 +1,8 @@
 package com.winningbets.supertipsbet;
 
+import static com.mopub.common.Constants.TEN_SECONDS_MILLIS;
+import static com.mopub.common.logging.MoPubLog.LogLevel.INFO;
+
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -17,9 +20,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-
-
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,28 +36,25 @@ import com.mopub.common.SdkConfiguration;
 import com.mopub.common.SdkInitializationListener;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
-import com.mopub.mobileads.MoPubView;
-
-import static com.mopub.common.Constants.TEN_SECONDS_MILLIS;
-import static com.mopub.common.logging.MoPubLog.LogLevel.INFO;
 
 
 public class Post_Details extends AppCompatActivity {
 
 
-    private static final String TAG ="FACEBOOK_ADS" ;
+    private static final String TAG = "FACEBOOK_ADS";
 
 
     DatabaseReference mRef;
     String postKey;
     TextView tvTitle, tvBody, tvTime;
-   // private InterstitialAd interstitialAd;
+    // private InterstitialAd interstitialAd;
     ImageView imgBody;
     ProgressDialog pd;
     String selection;
     //private AdView mAdView;
     AutoLinkTextView autoLinkTextView, autoLinkTextView2;
-    MoPubView moPubView;
+    private InterstitialAd mInterstitialAd;
+    private AdView mAdView;
     private MoPubInterstitial moPubInterstitial;
 
 
@@ -62,7 +62,7 @@ public class Post_Details extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       //AdSettings.setDebugBuild(true);
+        //AdSettings.setDebugBuild(true);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -74,18 +74,14 @@ public class Post_Details extends AppCompatActivity {
         configBuilder.withLogLevel(INFO);
         MoPub.initializeSdk(this, configBuilder.build(), initSdkListener());
 
-        moPubView = (MoPubView) findViewById(R.id.adview);
-        moPubView.setAdUnitId(getString(R.string.STB_Banner)); // Enter your Ad Unit ID from www.mopub.commoPubView.loadAd();
-        moPubView.loadAd();
-
 
         postKey = getIntent().getExtras().getString("postKey");
-        selection=getIntent().getExtras().getString("selection");
-        tvBody =  findViewById(R.id.tvBody);
-        tvTitle =  findViewById(R.id.tvTitle);
-        tvTime =  findViewById(R.id.post_time);
-        imgBody =  findViewById(R.id.imgBody);
-        pd=new ProgressDialog(this);
+        selection = getIntent().getExtras().getString("selection");
+        tvBody = findViewById(R.id.tvBody);
+        tvTitle = findViewById(R.id.tvTitle);
+        tvTime = findViewById(R.id.post_time);
+        imgBody = findViewById(R.id.imgBody);
+        pd = new ProgressDialog(this);
         pd.setMessage("Loading...");
         pd.show();
 
@@ -109,8 +105,8 @@ public class Post_Details extends AppCompatActivity {
                         Intent RateIntent =
                                 new Intent("android.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=com.winningbets.supertipsbet"));
                         startActivity(RateIntent);
-                    }catch (Exception e){
-                        Toast.makeText(getApplicationContext(),"Unable to connect try again later...",
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Unable to connect try again later...",
                                 Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
@@ -158,8 +154,8 @@ public class Post_Details extends AppCompatActivity {
                 if (time != null) {
                     setTime(time);
                 }
-                if (dataSnapshot.hasChild("image")){
-                    String image= (String) dataSnapshot.child("image").getValue();
+                if (dataSnapshot.hasChild("image")) {
+                    String image = (String) dataSnapshot.child("image").getValue();
 
                 }
 
@@ -172,17 +168,75 @@ public class Post_Details extends AppCompatActivity {
             }
         });
 
-       // showMopInt();
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+         showMopubInt();
+
+        //LoadAdmobInt();
 
     }
 
+    /*public void LoadAdmobInt() {
 
-    private void showMopInt(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this, getString(R.string.Admob_Interstitial), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+                Log.i(TAG, "onAdLoaded");
+                interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                        mInterstitialAd = null;
+                        Log.d("TAG", "The ad failed to show.");
+                    }
+
+                    @Override
+                    public void onAdShowedFullScreenContent() {
+                        Log.d("TAG", "The ad was shown.");
+                    }
+
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        mInterstitialAd = null;
+                        Log.d("TAG", "The ad was dismissed.");
+                    }
+
+                    @Override
+                    public void onAdImpression() {
+                        Log.d("TAG", "The ad made an impression.");
+                    }
+                });
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                // Handle the error
+                Log.i(TAG, loadAdError.getMessage());
+                mInterstitialAd = null;
+            }
+        });
+    }
+
+    private void showAdmobInterstitial() {
+        // Show the ad if it's ready. Otherwise toast and restart the game.
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
+    }*/
+    private void showMopubInt(){
         moPubInterstitial = new MoPubInterstitial(this, getString(R.string.Mopub_interstitial));
         moPubInterstitial.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
             @Override
             public void onInterstitialLoaded(MoPubInterstitial moPubInterstitial) {
-
                 if (moPubInterstitial != null && moPubInterstitial.isReady()) {
                     try {
                         if (moPubInterstitial.isReady()) {
@@ -196,10 +250,6 @@ public class Post_Details extends AppCompatActivity {
                         // Do nothing, just skip and wait for ad loading
                     }
                 }
-
-
-                // Show the ad
-
             }
 
             @Override
@@ -230,26 +280,34 @@ public class Post_Details extends AppCompatActivity {
 
             }
         });
-        //moPubInterstitial.load();
+        moPubInterstitial.load();
         if (moPubInterstitial.isReady()) {
             moPubInterstitial.show();
         } else {
             // Caching is likely already in progress if `isReady()` is false.
             // Avoid calling `load()` here and instead rely on the callbacks as suggested below.
         }
+
     }
+    private SdkInitializationListener initSdkListener(){
+        return () -> {
+            // moPubInterstitial.load();
+
+        };
+    }
+
 
     @Override
     public void onBackPressed() {
        /* mInterstitialAd = createNewIntAd();
         loadIntAdd();*/
-        //moPubInterstitial.load();
+        moPubInterstitial.load();
+        //showAdmobInterstitial();
         finish();
     }
 
     @Override
-    public void onDestroy(){
-        moPubView.destroy();
+    public void onDestroy() {
         super.onDestroy();
     }
 
@@ -259,6 +317,7 @@ public class Post_Details extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -267,7 +326,7 @@ public class Post_Details extends AppCompatActivity {
             loadIntAdd();*/
             //showInterstitials();
             finish();
-        } else if (id == R.id.about){
+        } else if (id == R.id.about) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Super Tips Predictions");
             try {
@@ -293,7 +352,7 @@ public class Post_Details extends AppCompatActivity {
                 Toast.makeText(Post_Details.this, "Unable to find play store", Toast.LENGTH_SHORT).show();
             }
 
-        }else if (id == R.id.ppolicy) {
+        } else if (id == R.id.ppolicy) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Privacy Policy");
             try {
@@ -398,12 +457,7 @@ public class Post_Details extends AppCompatActivity {
         }
 
 
-
     }
 
-    private SdkInitializationListener initSdkListener() {
-        return () -> {
-            // SDK initialization complete. You may now request ads.
-        };
-    }
+
 }

@@ -8,6 +8,9 @@
     <string name="nativeAd">600670007188545_823374431584767</string>
     <string name="interstitial_Ad">600670007188545_600671383855074</string>
     <string name="banner_Ad">ca-app-pub-5043208762700605/7658198592</string>
+    <string name="Admob_banner">ca-app-pub-5043208762700605/9610257637</string>
+    <string name="Admob_Interstitial">ca-app-pub-5043208762700605/8152855670</string>
+    <string name="Admob_Native">ca-app-pub-5043208762700605/3287713241</string>
 
 
     <string name="About_App">App Version 1 : 1.0.1\n\nDeveloper: WinnerTips.\n</string>

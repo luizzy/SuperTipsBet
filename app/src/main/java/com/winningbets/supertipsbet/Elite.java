@@ -1,216 +1,371 @@
 package com.winningbets.supertipsbet;
 
+import static android.content.ContentValues.TAG;
+import static com.mopub.common.Constants.TEN_SECONDS_MILLIS;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.VideoController;
+import com.google.android.gms.ads.VideoOptions;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.nativead.NativeAdOptions;
+import com.mopub.mobileads.MoPubErrorCode;
+import com.mopub.mobileads.MoPubInterstitial;
+
 /*import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;*/
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.mopub.mobileads.MoPubView;
-import com.mopub.nativeads.MoPubRecyclerAdapter;
 
 //import com.google.android.gms.ads.AdView;
 
 
-public class Elite extends Fragment {
-
+public class Elite extends Fragment implements View.OnClickListener {
 
 
     View view;
-    RecyclerView mRecyclerView;
-    LinearLayoutManager mLayoutManager;
-    TextView loading;
-    DatabaseReference mDatabaseReference;
-    FirebaseRecyclerAdapter<Model, ItemViewHolder> firebaseRecyclerAdapter;
-    private MoPubView moPubView;
+    private InterstitialAd mInterstitialAd;
+    private MoPubInterstitial moPubInterstitial;
 
-
-    TextView txtLoading;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_tips, container, false);
+        view = inflater.inflate(R.layout.elite, container, false);
+
+        CardView elite_picks = view.findViewById(R.id.elite);
+        CardView special = view.findViewById(R.id.special);
+        CardView single = view.findViewById(R.id.single);
+        CardView over = view.findViewById(R.id.over);
+        CardView ht = view.findViewById(R.id.ht);
+        CardView bigwin = view.findViewById(R.id.bigwin);
+        CardView all_sports = view.findViewById(R.id.all_sports);
+        CardView correct = view.findViewById(R.id.correct);
+        CardView surprise = view.findViewById(R.id.surprise);
+        //CardView telegram_join = binding.telegramJoin;
+
+        special.setOnClickListener(this);
+        single.setOnClickListener(this);
+        elite_picks.setOnClickListener(this);
+        over.setOnClickListener(this);
+        ht.setOnClickListener(this);
+        bigwin.setOnClickListener(this);
+        all_sports.setOnClickListener(this);
+        correct.setOnClickListener(this);
+        surprise.setOnClickListener(this);
 
 
+        VideoOptions videoOptions = new VideoOptions.Builder()
+                .setStartMuted(false)
+                .build();
 
-        mRecyclerView =  view.findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("stb").child("elite");
+        NativeAdOptions adOptions = new NativeAdOptions.Builder()
+                .setVideoOptions(videoOptions)
+                .build();
 
-        txtLoading =  view.findViewById(R.id.jp);mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        AdLoader adLoader = new AdLoader.Builder(getContext(), getString(R.string.Admob_Native))
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd NativeAd) {
+                        if (isDetached()) {
+                            NativeAd.destroy();
+                            return;// Show the ad.
+                        }
+                        if (NativeAd.getMediaContent().hasVideoContent()) {
 
+                            float mediaAspectRatio = NativeAd.getMediaContent().getAspectRatio();
+                            float duration = NativeAd.getMediaContent().getDuration();
 
+                        }
+                        NativeAd.getMediaContent().getVideoController().setVideoLifecycleCallbacks(new VideoController.VideoLifecycleCallbacks() {
+                            @Override
+                            public void onVideoStart() {
+                                Log.d("Luizzy", "Video Started");
+                            }
 
-        displayRecycler();
+                            @Override
+                            public void onVideoPlay() {
+                                Log.d("Luizzy", "onVideoPlay: ");
+                            }
+
+                            @Override
+                            public void onVideoPause() {
+                                Log.d("Luizzy", "onVideoPause: ");
+                            }
+
+                            @Override
+                            public void onVideoEnd() {
+                                Log.d("Luizzy", "onVideoEnd: ");
+                            }
+
+                            @Override
+                            public void onVideoMute(boolean b) {
+                                Log.d("Luizzy", "onVideoMute: ");
+                            }
+                        });
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().build();
+                        TemplateView template = view.findViewById(R.id.my_template);
+                        template.setVisibility(View.VISIBLE);
+                        template.setStyles(styles);
+                        template.setNativeAd(NativeAd);
+                    }
+                })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError adError) {
+                        Log.d(TAG, "onAdFailedToLoad: " + adError);
+                        // Handle the failure by logging, altering the UI, and so on.
+                    }
+                })
+                .withNativeAdOptions(new NativeAdOptions.Builder()
+                        // Methods in the NativeAdOptions.Builder class can be
+                        // used here to specify individual options settings.
+                        .build())
+                .withNativeAdOptions(adOptions)
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
 
         return view;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
 
-        return super.onOptionsItemSelected(item);
     }
-    public void showMopBanner(){
-        moPubView = view.findViewById(R.id.adview);
-        moPubView.setAdUnitId(getString(R.string.STB_Banner)); // Enter your Ad Unit ID from www.mopub.com
-        moPubView.loadAd();
+
+    /*public void LoadAdmobInt() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(getContext(), getString(R.string.Admob_Interstitial), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+                Log.i(TAG, "onAdLoaded");
+                interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                        mInterstitialAd = null;
+                        Log.d("TAG", "The ad failed to show.");
+                    }
+
+                    @Override
+                    public void onAdShowedFullScreenContent() {
+                        Log.d("TAG", "The ad was shown.");
+                    }
+
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        mInterstitialAd = null;
+                        Log.d("TAG", "The ad was dismissed.");
+                    }
+
+                    @Override
+                    public void onAdImpression() {
+                        Log.d("TAG", "The ad made an impression.");
+                    }
+                });
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                // Handle the error
+                Log.i(TAG, loadAdError.getMessage());
+                mInterstitialAd = null;
+            }
+        });
     }
+
+    private void showAdmobInterstitial() {
+        // Show the ad if it's ready. Otherwise toast and restart the game.
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(getActivity());
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
+    }*/
+
+    private void showMopubInt() {
+        moPubInterstitial = new MoPubInterstitial(getActivity(), getString(R.string.Mopub_interstitial));
+        moPubInterstitial.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
+            @Override
+            public void onInterstitialLoaded(MoPubInterstitial moPubInterstitial) {
+                if (moPubInterstitial != null && moPubInterstitial.isReady()) {
+                    try {
+                        if (moPubInterstitial.isReady()) {
+                            moPubInterstitial.show();
+                        } else {
+                            // Caching is likely already in progress if `isReady()` is false.
+                            // Avoid calling `load()` here and instead rely on the callbacks as suggested below.
+                            Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
+                        }
+                    } catch (Throwable e) {
+                        // Do nothing, just skip and wait for ad loading
+                    }
+                }
+            }
+
+            @Override
+            public void onInterstitialFailed(MoPubInterstitial moPubInterstitial, MoPubErrorCode moPubErrorCode) {
+                final Handler handler = new Handler();
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        moPubInterstitial.load();
+                    }
+                }, TEN_SECONDS_MILLIS);
+
+            }
+
+            @Override
+            public void onInterstitialShown(MoPubInterstitial moPubInterstitial) {
+
+            }
+
+            @Override
+            public void onInterstitialClicked(MoPubInterstitial moPubInterstitial) {
+
+            }
+
+            @Override
+            public void onInterstitialDismissed(MoPubInterstitial moPubInterstitial) {
+
+            }
+        });
+        moPubInterstitial.load();
+        if (moPubInterstitial.isReady()) {
+            moPubInterstitial.show();
+        } else {
+            // Caching is likely already in progress if `isReady()` is false.
+            // Avoid calling `load()` here and instead rely on the callbacks as suggested below.
+        }
+
+    }
+
 
     @Override
     public void onStart() {
         super.onStart();
-        displayRecycler();
-      //  showMopBanner();
-    }
-    public void displayRecycler() {
-
-        Query query = mDatabaseReference.limitToFirst(15);
-
-        FirebaseRecyclerOptions<Model> options =
-                new FirebaseRecyclerOptions.Builder<Model>()
-                        .setQuery(query, Model.class)
-                        .build();
-
-        FirebaseRecyclerAdapter<Model, ItemViewHolder> adapter = new FirebaseRecyclerAdapter<Model, ItemViewHolder>(options) {
-
-            @Override
-            public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                // Create a new instance of the ViewHolder, in this case we are using a custom
-                // layout called R.layout.message for each item
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.post_row, parent, false);
-
-                return new ItemViewHolder(view);
-            }
-
-            @Override
-            protected void onBindViewHolder(ItemViewHolder holder, int position, Model model) {
-                // Bind the Chat object to the ChatHolder
-                // ...
-                final String item_key = getRef(position).getKey();
-                holder.setTitle(model.getTitle());
-                holder.setPrice(model.getBody());
-                holder.setTime(model.getTime());
-                txtLoading.setVisibility(View.GONE);
-                // loading.setVisibility(View.GONE);
-                //swipeRefreshLayout.setRefreshing(false);
-
-                holder.mView.setOnClickListener(v -> {
-
-
-                    Intent adDetails = new Intent(v.getContext(), Post_Details.class);
-                    adDetails.putExtra("selection","elite");
-                    adDetails.putExtra("postKey", item_key);
-                    startActivity(adDetails);
-                });
-            }
-            @Override
-            public void onError(DatabaseError e) {
-                // Called when there is an error getting data. You may want to update
-                // your UI to display an error message to the user.
-                // ...
-                Toast.makeText(getActivity(), ""+e, Toast.LENGTH_SHORT).show();
-                //swipeRefreshLayout.setRefreshing(false);
-
-            }
-        };
-        adapter.startListening();
-        mRecyclerView.setAdapter(adapter);
+       // LoadAdmobInt();
+        //  showMopBanner();
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
     }
 
-    public static class ItemViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
 
+            case R.id.elite:
+                Intent intent6 = new Intent(view.getContext(), games.class);
+                intent6.putExtra("title", "Elite Tips");
+                intent6.putExtra("db", "stb");
+                intent6.putExtra("selectedp", "elite");
+                startActivity(intent6);
+                //showAdmobInterstitial();
+                showMopubInt();
+                break;
 
-        View mView;
+            case R.id.special:
+                Intent intent1 = new Intent(view.getContext(), games.class);
+                intent1.putExtra("title", "Special Tips");
+                intent1.putExtra("db", "stb");
+                intent1.putExtra("selectedp", "special");
+                startActivity(intent1);
+                //showAdmobInterstitial();
+                showMopubInt();
+                break;
 
-        public ItemViewHolder(View v) {
-            super(v);
-            mView = v;
+            case R.id.single:
+                Intent intent2 = new Intent(view.getContext(), games.class);
+                intent2.putExtra("title", "Single");
+                intent2.putExtra("db", "stb");
+                intent2.putExtra("selectedp", "single");
+                startActivity(intent2);
+               // showAdmobInterstitial();
+                showMopubInt();
+                break;
+
+            case R.id.over:
+                Intent intent3 = new Intent(view.getContext(), games.class);
+                intent3.putExtra("title", "Over/Under Picks");
+                intent3.putExtra("db", "stb");
+                intent3.putExtra("selectedp", "over");
+                startActivity(intent3);
+               // showAdmobInterstitial();
+                showMopubInt();
+                break;
+
+            case R.id.ht:
+                Intent intent4 = new Intent(view.getContext(), games.class);
+                intent4.putExtra("title", "HT/FT Tips");
+                intent4.putExtra("db", "stb");
+                intent4.putExtra("selectedp", "ht");
+                startActivity(intent4);
+                //showAdmobInterstitial();
+                showMopubInt();
+                break;
+
+            case R.id.bigwin:
+                Intent intent5 = new Intent(view.getContext(), games.class);
+                intent5.putExtra("title", "Big Odds Picks");
+                intent5.putExtra("db", "stb");
+                intent5.putExtra("selectedp", "bigwin");
+                startActivity(intent5);
+                //showAdmobInterstitial();
+                showMopubInt();
+                break;
+
+            case R.id.all_sports:
+                Intent intent7 = new Intent(view.getContext(), games.class);
+                intent7.putExtra("title", "All Sports Tips");
+                intent7.putExtra("db", "stb");
+                intent7.putExtra("selectedp", "basketball");
+                startActivity(intent7);
+                //showAdmobInterstitial();
+                showMopubInt();
+                break;
+
+            case R.id.correct:
+                Intent intent8 = new Intent(view.getContext(), games.class);
+                intent8.putExtra("title", "Correct Score Tips");
+                intent8.putExtra("db", "stb");
+                intent8.putExtra("selectedp", "correct tips");
+                startActivity(intent8);
+                //showAdmobInterstitial();
+                showMopubInt();
+                break;
+
+            case R.id.surprise:
+                Intent intent10 = new Intent(view.getContext(), games.class);
+                intent10.putExtra("title", "Surprise Tips");
+                intent10.putExtra("db", "stb");
+                intent10.putExtra("selectedp", "surprise");
+                startActivity(intent10);
+               // showAdmobInterstitial();
+                showMopubInt();
+                break;
 
         }
 
-        public void setTitle(String title) {
-            TextView tvTitle =  mView.findViewById(R.id.postTitle);
-            tvTitle.setText(title);
-        }
-
-        public void setPrice(String price) {
-
-            TextView txtPrice =  mView.findViewById(R.id.post);
-            txtPrice.setText("" + price);
-
-        }
-
-        public void setTime(Long time) {
-
-            TextView txtTime =  mView.findViewById(R.id.postTime);
-            //long elapsedDays=0,elapsedWeeks = 0, elapsedHours=0,elapsedMin=0;
-            long elapsedTime;
-            long currentTime = System.currentTimeMillis();
-            int elapsed = (int) ((currentTime - time) / 1000);
-            if (elapsed < 60) {
-                if (elapsed < 2) {
-                    txtTime.setText("Just Now");
-                } else {
-                    txtTime.setText(elapsed + " sec ago");
-                }
-            } else if (elapsed > 604799) {
-                elapsedTime = elapsed / 604800;
-                if (elapsedTime == 1) {
-                    txtTime.setText(elapsedTime + " week ago");
-                } else {
-
-                    txtTime.setText(elapsedTime + " weeks ago");
-                }
-            } else if (elapsed > 86399) {
-                elapsedTime = elapsed / 86400;
-                if (elapsedTime == 1) {
-                    txtTime.setText(elapsedTime + " day ago");
-                } else {
-                    txtTime.setText(elapsedTime + " days ago");
-                }
-            } else if (elapsed > 3599) {
-                elapsedTime = elapsed / 3600;
-                if (elapsedTime == 1) {
-                    txtTime.setText(elapsedTime + " hour ago");
-                } else {
-                    txtTime.setText(elapsedTime + " hours ago");
-                }
-            } else if (elapsed > 59) {
-                elapsedTime = elapsed / 60;
-                txtTime.setText(elapsedTime + " min ago");
-
-
-            }
-
-        }
+       /* if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }*/
     }
 }

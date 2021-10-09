@@ -1,2 +1,3 @@
 rootProject.name='SuperTipsBet'
 include ':app'
+include ':nativetemplates'

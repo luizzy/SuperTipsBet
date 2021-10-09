@@ -31,7 +31,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.mopub.mobileads.MoPubView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -47,7 +48,7 @@ public class livescorefrag extends Fragment {
     View v;
 
     SwipeRefreshLayout refresher;
-    MoPubView moPubView;
+    private AdView mAdView;
 
 
 
@@ -71,9 +72,9 @@ public class livescorefrag extends Fragment {
         v = inflater.inflate(R.layout.telegram_websites, container, false);
 
 
-        moPubView = v.findViewById(R.id.adview);
-        moPubView.setAdUnitId(getString(R.string.STB_Banner));
-        moPubView.loadAd();
+        mAdView = v.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         progressBar =  v.findViewById(R.id.progressBar2);

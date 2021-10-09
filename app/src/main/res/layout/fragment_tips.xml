@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
     app:ignore="NamespaceTypo">
 
 
-   <!-- <com.facebook.ads.NativeAdLayout
-        android:id="@+id/native_ad_container"
-        android:layout_width="match_parent"
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorAccent"
-        />
--->
-    <com.mopub.mobileads.MoPubView
-        android:id="@+id/adview"
-        android:layout_width='match_parent'
-        android:layout_height='wrap_content'
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        app:moPubAdSize='match_view'>
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/Admob_banner">
 
-    </com.mopub.mobileads.MoPubView>
+    </com.google.android.gms.ads.AdView>
 
     <TextView
         android:id="@+id/jp"
@@ -40,10 +33,6 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/adview"
-
-        />
-
-
+        android:layout_below="@id/adView" />
 
 </RelativeLayout>

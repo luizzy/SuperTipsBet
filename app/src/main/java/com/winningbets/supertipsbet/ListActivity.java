@@ -1,6 +1,9 @@
 package com.winningbets.supertipsbet;
 
 
+import static com.mopub.common.logging.MoPubLog.LogLevel.DEBUG;
+import static com.mopub.common.logging.MoPubLog.LogLevel.INFO;
+
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,7 +11,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,24 +27,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.facebook.ads.AudienceNetworkAds;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
 import com.mopub.common.SdkInitializationListener;
-import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
 
 import hotchemi.android.rate.AppRate;
 import hotchemi.android.rate.OnClickButtonListener;
 
-import static com.mopub.common.Constants.TEN_SECONDS_MILLIS;
-import static com.mopub.common.logging.MoPubLog.LogLevel.DEBUG;
-import static com.mopub.common.logging.MoPubLog.LogLevel.INFO;
+public class ListActivity extends AppCompatActivity {
 
-public class ListActivity extends AppCompatActivity{
-
-    private static final String TAG ="FACEBOOK_ADS" ;
+    private static final String TAG = "FACEBOOK_ADS";
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -58,19 +58,11 @@ public class ListActivity extends AppCompatActivity{
 
         AudienceNetworkAds.initialize(this);
 
-        final SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder(getString(R.string.STB_Banner));
-
-        if (BuildConfig.DEBUG) {
-            configBuilder.withLogLevel(DEBUG);
-        } else {
-            configBuilder.withLogLevel(INFO);
-        }
-
-
-        MoPub.initializeSdk(this, configBuilder.build(), initSdkListener());
-
-
-        //ShowMopubInt();
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
 
 
         initializeStuff();
@@ -84,96 +76,44 @@ public class ListActivity extends AppCompatActivity{
         setUpNavigationView(navigationView);
 
 
-
         //This is for the Hamburger icon.
         drawerToggle = setupDrawerToggle();
-       drawerLayout.addDrawerListener(drawerToggle);
+        drawerLayout.addDrawerListener(drawerToggle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frameContent,new FragmentTabs()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frameContent, new FragmentTabs()).commit();
         navigationView.setCheckedItem(R.id.nav_view);
         setTitle(R.string.app_name);
+
+        final SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder(getString(R.string.Mopub_interstitial));
+
+        if (BuildConfig.DEBUG) {
+            configBuilder.withLogLevel(DEBUG);
+        } else {
+            configBuilder.withLogLevel(INFO);
+        }
+
+        MoPub.initializeSdk(this, configBuilder.build(), initSdkListener());
     }
 
-    private void initializeStuff(){
+    private void initializeStuff() {
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
 
-
     }
 
-    private void ShowMopubInt(){
-        moPubInterstitial = new MoPubInterstitial(this, getString(R.string.Mopub_interstitial));
-        moPubInterstitial.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
-            @Override
-            public void onInterstitialLoaded(MoPubInterstitial moPubInterstitial) {
 
-                if (moPubInterstitial != null && moPubInterstitial.isReady()) {
-                    try {
-                        if (moPubInterstitial.isReady()) {
-                            moPubInterstitial.show();
-                        } else {
-                            // Caching is likely already in progress if `isReady()` is false.
-                            // Avoid calling `load()` here and instead rely on the callbacks as suggested below.
-                            Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
-                        }
-                    } catch (Throwable e) {
-                        // Do nothing, just skip and wait for ad loading
-                    }
-                }
-
-
-                // Show the ad
-
-            }
-
-            @Override
-            public void onInterstitialFailed(MoPubInterstitial moPubInterstitial, MoPubErrorCode moPubErrorCode) {
-                final Handler handler = new Handler();
-
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        moPubInterstitial.load();
-                    }
-                }, TEN_SECONDS_MILLIS);
-
-            }
-
-            @Override
-            public void onInterstitialShown(MoPubInterstitial moPubInterstitial) {
-
-            }
-
-            @Override
-            public void onInterstitialClicked(MoPubInterstitial moPubInterstitial) {
-
-            }
-
-            @Override
-            public void onInterstitialDismissed(MoPubInterstitial moPubInterstitial) {
-
-            }
-        });
-        moPubInterstitial.load();
-        if (moPubInterstitial.isReady()) {
-            moPubInterstitial.show();
-        } else {
-            // Caching is likely already in progress if `isReady()` is false.
-            // Avoid calling `load()` here and instead rely on the callbacks as suggested below.
-        }
-    }
-
-    private SdkInitializationListener initSdkListener(){
+    private SdkInitializationListener initSdkListener() {
         return new SdkInitializationListener() {
             @Override
             public void onInitializationFinished() {
-               // moPubInterstitial.load();
+                //moPubInterstitial.load();
 
             }
         };
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -183,10 +123,10 @@ public class ListActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Fragment frag= null;
+        Fragment frag = null;
         int id = item.getItemId();
         if (id == android.R.id.home) {
-           //showInterstitials();
+            //showInterstitials();
 
             finish();
         }
@@ -206,7 +146,7 @@ public class ListActivity extends AppCompatActivity{
             alert.show();
 
 
-        }else if (id == R.id.ppolicy) {
+        } else if (id == R.id.ppolicy) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Privacy Policy");
 
@@ -260,15 +200,14 @@ public class ListActivity extends AppCompatActivity{
             alert.show();
 
 
-        }
-        else if (id == R.id.feedback) {
+        } else if (id == R.id.feedback) {
             startActivity(new Intent(ListActivity.this, com.winningbets.supertipsbet.Feedback.class));
 
-        }else if (id == R.id.about) {
+        } else if (id == R.id.about) {
 
             View messageView = getLayoutInflater().inflate(R.layout.about, null, false);
 
-            TextView textView =  messageView.findViewById(R.id.about_credits);
+            TextView textView = messageView.findViewById(R.id.about_credits);
             TextView textView1 = messageView.findViewById(R.id.about_description);
             int defaultColor = textView.getResources().getColor(R.color.colorBlack);
             int defaultColor1 = textView1.getResources().getColor(R.color.colorBlack);
@@ -281,9 +220,7 @@ public class ListActivity extends AppCompatActivity{
             builder.setView(messageView);
             builder.create();
             builder.show();
-        }
-
-        else if (id == R.id.rate) {
+        } else if (id == R.id.rate) {
 
             Uri uri = Uri.parse("market://details?id=" + getPackageName());
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -308,7 +245,7 @@ public class ListActivity extends AppCompatActivity{
     }
 
 
-   private void setUpNavigationView(final NavigationView navigationView) {
+    private void setUpNavigationView(final NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -326,6 +263,7 @@ public class ListActivity extends AppCompatActivity{
                     }
                 });
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -338,7 +276,7 @@ public class ListActivity extends AppCompatActivity{
                     .setRemindInterval(2) // default 1
                     .setShowLaterButton(true) // default true
                     .setDebug(false) // default false
-                    .setMessage("Do you Love  " + ListActivity.this.getString(R.string.app_name)+
+                    .setMessage("Do you Love  " + ListActivity.this.getString(R.string.app_name) +
                             "App? Please rate us 5 stars. It keeps us Motivated")
                     .setTitle("Rate us 5 stars please")
                     .setOnClickButtonListener(new OnClickButtonListener() { // callback listener.
@@ -367,33 +305,13 @@ public class ListActivity extends AppCompatActivity{
         }, 2000);
     }
 
-    public Fragment selectDrawerItem(MenuItem menuItem){
+    public Fragment selectDrawerItem(MenuItem menuItem) {
         Fragment fragment = null;
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_elite:
                 fragment = new FragmentTabs();
                 break;
-            case R.id.nav_single:
-                fragment = new Single();
-                break;
-            case R.id.nav_special:
-                fragment = new Special();
-                break;
-            case R.id.nav_ht:
-                fragment = new Ht();
-                break;
-            case R.id.nav_bigwin:
-                fragment = new Bigwin();
-                break;
-            case R.id.nav_over:
-                fragment = new Over();
-                break;
-            case R.id.nav_correct:
-                fragment = new CorrectScore();
-                break;
-            case R.id.nav_basketball:
-                fragment = new Basketball();
-                break;
+
             case R.id.nav_telegram:
                 fragment = new Telegram_Websites();
                 break;
@@ -404,7 +322,7 @@ public class ListActivity extends AppCompatActivity{
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     }
 
     @Override

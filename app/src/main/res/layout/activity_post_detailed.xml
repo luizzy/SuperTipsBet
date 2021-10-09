@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/tools"
+    android:background="@drawable/background"
     app:ignore="NamespaceTypo">
 
     <TextView
@@ -73,20 +74,22 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         />-->
-    <com.mopub.mobileads.MoPubView
-        android:layout_width='match_parent'
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/ll"
-        android:id="@+id/adview"
-        android:layout_height='wrap_content'
-        app:moPubAdSize='match_view'>
-
-    </com.mopub.mobileads.MoPubView>
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/Admob_banner">
+    </com.google.android.gms.ads.AdView>
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/adview"
+        android:layout_below="@+id/adView"
         >
 
         <LinearLayout

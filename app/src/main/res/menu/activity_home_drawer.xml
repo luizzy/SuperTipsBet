@@ -2,81 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item
-        android:id="@+id/group1"
-        android:title="Main Tips">
-        <menu>
+
+
             <group
                 android:id="@+id/grp1"
                 android:checkableBehavior="single">
 
                 <item
                     android:id="@+id/nav_elite"
-                    android:title="Elite Tips" />
+                    android:title="Home" />
 
-                <item
-                    android:id="@+id/nav_special"
-                    android:title="Special Tips" />
-                <item
-                    android:id="@+id/nav_single"
-                    android:title="Single Tips" />
-            </group>
-        </menu>
-    </item>
-
-
-    <item
-        android:id="@+id/group2"
-        android:title="Extra Tips">
-        <menu>
-            <group
-                android:id="@+id/grp2"
-                android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_over"
-                    android:title="Over/Under Tips" />
-                <item
-                    android:id="@+id/nav_ht"
-                    android:title="HT/FT Tips" />
-                <item
-                    android:id="@+id/nav_bigwin"
-                    android:title="Big Win Tips" />
-            </group>
-        </menu>
-    </item>
-
-
-    <item
-        android:id="@+id/group3"
-        android:title="Bonus Tips">
-        <menu>
-            <group
-                android:id="@+id/grp3"
-                android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_basketball"
-                    android:title="All Sports Tips" />
-                <item
-                    android:id="@+id/nav_correct"
-                    android:title="Correct Score" />
-            </group>
-
-        </menu>
-    </item>
-
-
-    <item
-        android:id="@+id/group4"
-        android:title="Join Us">
-        <menu>
-            <group
-                android:id="@+id/grp4"
-                android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_telegram"
                     android:title="Telegram Channel" />
-            </group>
 
-        </menu>
-    </item>
+            </group>
 </menu>

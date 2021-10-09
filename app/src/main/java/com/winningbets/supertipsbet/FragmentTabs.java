@@ -82,7 +82,7 @@ public class FragmentTabs extends Fragment {
 
             switch (position) {
                 case 0:
-                    return "Elite Tips";
+                    return "Home";
                 case 1:
                     return "LiveScores";
 

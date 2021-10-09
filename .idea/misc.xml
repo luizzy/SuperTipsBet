@@ -3,7 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/drawable/allsports.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/drawable/background.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/drawable/icon.xml" value="0.13802083333333334" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/drawable/side_nav_bar.xml" value="0.12083333333333333" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/layout/activity_post_detailed.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/layout/app_bar_home.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/layout/content_home.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/layout/elite.xml" value="0.2" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/layout/fragment_fragment_tabs.xml" value="0.1" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/layout/fragment_tips.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/layout/nav_header_home.xml" value="0.1" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/layout/telegram_websites.xml" value="0.1" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/menu/activity_home_drawer.xml" value="0.264" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/SuperTipsBet/app/src/main/res/menu/home.xml" value="0.1046875" />
       </map>
     </option>
   </component>
@@ -62,7 +76,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.1484771573604061" />
+        <option name="scale" value="0.1" />
       </ProjectState>
     </option>
   </component>
