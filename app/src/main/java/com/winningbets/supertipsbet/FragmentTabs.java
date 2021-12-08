@@ -5,20 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 
 public class FragmentTabs extends Fragment {
 
     public static TabLayout tabLayout;
-    public static ViewPager viewPager;
+    public static ViewPager2 viewPager;
     public static int int_items = 2;
+    MyAdapter myAdapter;
+    View view;
 
     public FragmentTabs() {
         // Required empty public constructor
@@ -29,37 +32,42 @@ public class FragmentTabs extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //this inflates out tab layout file.
-        View x = inflater.inflate(R.layout.fragment_fragment_tabs, null);
-        // set up stuff.
-        tabLayout = x.findViewById(R.id.mTabLayout);
-        viewPager = x.findViewById(R.id.viewPager);
-
-        // create a new adapter for our pageViewer. This adapters returns child fragments as per the position of the page Viewer.
-        viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
-
-        // this is a workaround
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                //provide the viewPager to TabLayout.
-                tabLayout.setupWithViewPager(viewPager);
-            }
-        });
-        //to preload the adjacent tabs. This makes transition smooth.
-        viewPager.setOffscreenPageLimit(2);
-
-        return x;
+        return inflater.inflate(R.layout.fragment_fragment_tabs, container, false);
     }
 
-    class MyAdapter extends FragmentPagerAdapter {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        myAdapter = new MyAdapter(this);
+        TabLayout tabLayout = view.findViewById(R.id.mTabLayout);
+        ViewPager2 viewPager = view.findViewById(R.id.viewPager);
+        viewPager.setAdapter(myAdapter);
 
-        public MyAdapter(FragmentManager fm) {
+        // create a new adapter for our pageViewer. This adapters returns child fragments as per the position of the page Viewer.
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> {
+                    if (position == 0) {
+                        tab.setText("Home");
+                    } else {
+                        tab.setText("LiveScore");
+                    }
+                }
+        ).attach();
+
+
+        //return x;
+    }
+
+    private class MyAdapter extends FragmentStateAdapter {
+
+        public MyAdapter(FragmentTabs fm) {
             super(fm);
         }
 
         //return the fragment with respect to page position.
+
+        @NonNull
         @Override
-        public Fragment getItem(int position) {
+        public Fragment createFragment(int position) {
             switch (position) {
                 case 0:
                     return new Elite();
@@ -70,25 +78,10 @@ public class FragmentTabs extends Fragment {
         }
 
         @Override
-        public int getCount() {
-
+        public int getItemCount() {
             return int_items;
-
         }
 
-        //This method returns the title of the tab according to the position.
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            switch (position) {
-                case 0:
-                    return "Home";
-                case 1:
-                    return "LiveScores";
-
-            }
-            return null;
-        }
     }
 }
 

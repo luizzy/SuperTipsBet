@@ -1,22 +1,22 @@
 package com.winningbets.supertipsbet;
 
 
-import static com.mopub.common.logging.MoPubLog.LogLevel.DEBUG;
-import static com.mopub.common.logging.MoPubLog.LogLevel.INFO;
-
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,43 +26,46 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.facebook.ads.AudienceNetworkAds;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.mopub.common.MoPub;
-import com.mopub.common.SdkConfiguration;
-import com.mopub.common.SdkInitializationListener;
-import com.mopub.mobileads.MoPubInterstitial;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import hotchemi.android.rate.AppRate;
 import hotchemi.android.rate.OnClickButtonListener;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements ForceUpdateChecker.OnUpdateNeededListener {
 
-    private static final String TAG = "FACEBOOK_ADS";
+    //private static final String TAG = "FACEBOOK_ADS";
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
     private boolean doubleBack = false;
-    private MoPubInterstitial moPubInterstitial;
+    private static final String TAG = ListActivity.class.getSimpleName();
+    // private MoPubInterstitial moPubInterstitial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        AudienceNetworkAds.initialize(this);
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+
+        ForceUpdateChecker.with(this).onUpdateNeeded(this).check();
 
 
         initializeStuff();
@@ -85,7 +88,29 @@ public class ListActivity extends AppCompatActivity {
         navigationView.setCheckedItem(R.id.nav_view);
         setTitle(R.string.app_name);
 
-        final SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder(getString(R.string.Mopub_interstitial));
+        final FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+        // set in-app defaults
+        Map<String, Object> remoteConfigDefaults = new HashMap();
+        remoteConfigDefaults.put(ForceUpdateChecker.KEY_UPDATE_REQUIRED, false);
+        remoteConfigDefaults.put(ForceUpdateChecker.KEY_CURRENT_VERSION, "1.0.0");
+        remoteConfigDefaults.put(ForceUpdateChecker.KEY_UPDATE_URL,
+                "https://play.google.com/store/apps/details?id=com.winningbets.supertipsbet");
+
+        firebaseRemoteConfig.setDefaultsAsync(remoteConfigDefaults);
+        firebaseRemoteConfig.fetch(60) // fetch every minutes
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "remote config is fetched.");
+                            firebaseRemoteConfig.activate();
+                        }
+                    }
+                });
+
+
+        /*final SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder(getString(R.string.Mopub_interstitial));
 
         if (BuildConfig.DEBUG) {
             configBuilder.withLogLevel(DEBUG);
@@ -93,7 +118,34 @@ public class ListActivity extends AppCompatActivity {
             configBuilder.withLogLevel(INFO);
         }
 
-        MoPub.initializeSdk(this, configBuilder.build(), initSdkListener());
+        MoPub.initializeSdk(this, configBuilder.build(), initSdkListener());*/
+    }
+
+    @Override
+    public void onUpdateNeeded(final String updateUrl) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("New version available")
+                .setMessage("Please, update app to new version to continue enjoying.")
+                .setPositiveButton("Update",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                redirectStore(updateUrl);
+                            }
+                        }).setNegativeButton("No, thanks",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }).create();
+        dialog.show();
+    }
+
+    private void redirectStore(String updateUrl) {
+        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void initializeStuff() {
@@ -104,7 +156,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
 
-    private SdkInitializationListener initSdkListener() {
+   /* private SdkInitializationListener initSdkListener() {
         return new SdkInitializationListener() {
             @Override
             public void onInitializationFinished() {
@@ -112,7 +164,7 @@ public class ListActivity extends AppCompatActivity {
 
             }
         };
-    }
+    }*/
 
 
     @Override

@@ -1,15 +1,11 @@
 package com.winningbets.supertipsbet;
 
-import static com.mopub.common.Constants.TEN_SECONDS_MILLIS;
-import static com.mopub.common.logging.MoPubLog.LogLevel.INFO;
-
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,12 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,11 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkOnClickListener;
 import com.luseen.autolinklibrary.AutoLinkTextView;
-import com.mopub.common.MoPub;
-import com.mopub.common.SdkConfiguration;
-import com.mopub.common.SdkInitializationListener;
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubInterstitial;
 
 
 public class Post_Details extends AppCompatActivity {
@@ -55,7 +51,6 @@ public class Post_Details extends AppCompatActivity {
     AutoLinkTextView autoLinkTextView, autoLinkTextView2;
     private InterstitialAd mInterstitialAd;
     private AdView mAdView;
-    private MoPubInterstitial moPubInterstitial;
 
 
     @Override
@@ -70,9 +65,9 @@ public class Post_Details extends AppCompatActivity {
         }
         setContentView(R.layout.activity_post_detailed);
 
-        SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder(getString(R.string.Mopub_interstitial));
+       /* SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder(getString(R.string.Mopub_interstitial));
         configBuilder.withLogLevel(INFO);
-        MoPub.initializeSdk(this, configBuilder.build(), initSdkListener());
+        MoPub.initializeSdk(this, configBuilder.build(), initSdkListener());*/
 
 
         postKey = getIntent().getExtras().getString("postKey");
@@ -92,10 +87,10 @@ public class Post_Details extends AppCompatActivity {
         autoLinkTextView.setCustomRegex("\\sHere\\b");
         autoLinkTextView.setAutoLinkText("Rate and update the app Here");
 
-        /*autoLinkTextView2 = findViewById(R.id.autoLinkrate2);
+        autoLinkTextView2 = findViewById(R.id.autoLinkrate2);
         autoLinkTextView2.addAutoLinkMode(AutoLinkMode.MODE_CUSTOM);
         autoLinkTextView2.setCustomRegex("\\sTelegram\\b");
-        autoLinkTextView2.setAutoLinkText("Join our Telegram channel for more games");*/
+        autoLinkTextView2.setAutoLinkText("Join our Telegram channel for more games");
 
         autoLinkTextView.setAutoLinkOnClickListener(new AutoLinkOnClickListener() {
             @Override
@@ -113,7 +108,7 @@ public class Post_Details extends AppCompatActivity {
 
             }
         });
-       /* autoLinkTextView2.setAutoLinkOnClickListener(new AutoLinkOnClickListener() {
+        autoLinkTextView2.setAutoLinkOnClickListener(new AutoLinkOnClickListener() {
             @Override
             public void onAutoLinkTextClick(AutoLinkMode autoLinkMode, String matchedText) {
                 if (autoLinkMode == AutoLinkMode.MODE_CUSTOM)
@@ -128,7 +123,7 @@ public class Post_Details extends AppCompatActivity {
                     }
 
             }
-        });*/
+        });
 
         if (postKey != null) {
 
@@ -172,13 +167,13 @@ public class Post_Details extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-         showMopubInt();
+         //showMopubInt();
 
         //LoadAdmobInt();
 
     }
 
-    /*public void LoadAdmobInt() {
+    public void LoadAdmobInt() {
 
         AdRequest adRequest = new AdRequest.Builder().build();
 
@@ -231,8 +226,8 @@ public class Post_Details extends AppCompatActivity {
         } else {
             Log.d("TAG", "The interstitial ad wasn't ready yet.");
         }
-    }*/
-    private void showMopubInt(){
+    }
+   /* private void showMopubInt(){
         moPubInterstitial = new MoPubInterstitial(this, getString(R.string.Mopub_interstitial));
         moPubInterstitial.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
             @Override
@@ -294,15 +289,16 @@ public class Post_Details extends AppCompatActivity {
             // moPubInterstitial.load();
 
         };
-    }
+    }*/
 
 
     @Override
     public void onBackPressed() {
        /* mInterstitialAd = createNewIntAd();
         loadIntAdd();*/
-        moPubInterstitial.load();
-        //showAdmobInterstitial();
+        //moPubInterstitial.load();
+        //showMopubInt();
+        showAdmobInterstitial();
         finish();
     }
 

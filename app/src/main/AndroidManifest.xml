@@ -32,20 +32,19 @@
             android:value="ca-app-pub-5043208762700605~3853344557" />
 
         <activity android:name="com.winningbets.supertipsbet.ListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name="com.winningbets.supertipsbet.Post_Details"
-            android:label="Today's Tips"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            android:label="Today's Tips">
+
         </activity>
         <activity android:name=".games">
 

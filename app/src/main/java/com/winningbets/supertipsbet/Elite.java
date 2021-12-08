@@ -1,31 +1,31 @@
 package com.winningbets.supertipsbet;
 
 import static android.content.ContentValues.TAG;
-import static com.mopub.common.Constants.TEN_SECONDS_MILLIS;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.VideoController;
 import com.google.android.gms.ads.VideoOptions;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubInterstitial;
 
 /*import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;*/
@@ -38,7 +38,7 @@ public class Elite extends Fragment implements View.OnClickListener {
 
     View view;
     private InterstitialAd mInterstitialAd;
-    private MoPubInterstitial moPubInterstitial;
+    //  private MoPubInterstitial moPubInterstitial;
 
 
     @Override
@@ -144,7 +144,7 @@ public class Elite extends Fragment implements View.OnClickListener {
 
     }
 
-    /*public void LoadAdmobInt() {
+    public void LoadAdmobInt() {
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(getContext(), getString(R.string.Admob_Interstitial), adRequest, new InterstitialAdLoadCallback() {
             @Override
@@ -195,9 +195,9 @@ public class Elite extends Fragment implements View.OnClickListener {
         } else {
             Log.d("TAG", "The interstitial ad wasn't ready yet.");
         }
-    }*/
+    }
 
-    private void showMopubInt() {
+    /*private void showMopubInt() {
         moPubInterstitial = new MoPubInterstitial(getActivity(), getString(R.string.Mopub_interstitial));
         moPubInterstitial.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
             @Override
@@ -253,13 +253,13 @@ public class Elite extends Fragment implements View.OnClickListener {
             // Avoid calling `load()` here and instead rely on the callbacks as suggested below.
         }
 
-    }
+    }*/
 
 
     @Override
     public void onStart() {
         super.onStart();
-       // LoadAdmobInt();
+        LoadAdmobInt();
         //  showMopBanner();
     }
 
@@ -278,8 +278,8 @@ public class Elite extends Fragment implements View.OnClickListener {
                 intent6.putExtra("db", "stb");
                 intent6.putExtra("selectedp", "elite");
                 startActivity(intent6);
-                //showAdmobInterstitial();
-                showMopubInt();
+                showAdmobInterstitial();
+                //showMopubInt();
                 break;
 
             case R.id.special:
@@ -289,7 +289,7 @@ public class Elite extends Fragment implements View.OnClickListener {
                 intent1.putExtra("selectedp", "special");
                 startActivity(intent1);
                 //showAdmobInterstitial();
-                showMopubInt();
+                // showMopubInt();
                 break;
 
             case R.id.single:
@@ -298,8 +298,8 @@ public class Elite extends Fragment implements View.OnClickListener {
                 intent2.putExtra("db", "stb");
                 intent2.putExtra("selectedp", "single");
                 startActivity(intent2);
-               // showAdmobInterstitial();
-                showMopubInt();
+                showAdmobInterstitial();
+                // showMopubInt();
                 break;
 
             case R.id.over:
@@ -308,8 +308,8 @@ public class Elite extends Fragment implements View.OnClickListener {
                 intent3.putExtra("db", "stb");
                 intent3.putExtra("selectedp", "over");
                 startActivity(intent3);
-               // showAdmobInterstitial();
-                showMopubInt();
+                // showAdmobInterstitial();
+                // showMopubInt();
                 break;
 
             case R.id.ht:
@@ -318,8 +318,8 @@ public class Elite extends Fragment implements View.OnClickListener {
                 intent4.putExtra("db", "stb");
                 intent4.putExtra("selectedp", "ht");
                 startActivity(intent4);
-                //showAdmobInterstitial();
-                showMopubInt();
+                showAdmobInterstitial();
+                // showMopubInt();
                 break;
 
             case R.id.bigwin:
@@ -328,8 +328,8 @@ public class Elite extends Fragment implements View.OnClickListener {
                 intent5.putExtra("db", "stb");
                 intent5.putExtra("selectedp", "bigwin");
                 startActivity(intent5);
-                //showAdmobInterstitial();
-                showMopubInt();
+                showAdmobInterstitial();
+                // showMopubInt();
                 break;
 
             case R.id.all_sports:
@@ -339,7 +339,7 @@ public class Elite extends Fragment implements View.OnClickListener {
                 intent7.putExtra("selectedp", "basketball");
                 startActivity(intent7);
                 //showAdmobInterstitial();
-                showMopubInt();
+                // showMopubInt();
                 break;
 
             case R.id.correct:
@@ -348,8 +348,8 @@ public class Elite extends Fragment implements View.OnClickListener {
                 intent8.putExtra("db", "stb");
                 intent8.putExtra("selectedp", "correct tips");
                 startActivity(intent8);
-                //showAdmobInterstitial();
-                showMopubInt();
+                showAdmobInterstitial();
+                // showMopubInt();
                 break;
 
             case R.id.surprise:
@@ -358,8 +358,8 @@ public class Elite extends Fragment implements View.OnClickListener {
                 intent10.putExtra("db", "stb");
                 intent10.putExtra("selectedp", "surprise");
                 startActivity(intent10);
-               // showAdmobInterstitial();
-                showMopubInt();
+                //showAdmobInterstitial();
+                //  showMopubInt();
                 break;
 
         }
